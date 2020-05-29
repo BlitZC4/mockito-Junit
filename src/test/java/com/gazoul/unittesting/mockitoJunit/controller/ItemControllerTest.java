@@ -1,4 +1,4 @@
-package com.gazoul.unittesting.mockitoJunit;
+package com.gazoul.unittesting.mockitoJunit.controller;
 
 
 import com.gazoul.unittesting.mockitoJunit.business.ItemBusinessService;
