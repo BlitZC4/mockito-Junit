@@ -1,13 +1,16 @@
 package com.gazoul.unittesting.mockitoJunit;
 
 
+import com.gazoul.unittesting.mockitoJunit.business.ItemBusinessService;
 import com.gazoul.unittesting.mockitoJunit.controller.HelloWorldController;
 import com.gazoul.unittesting.mockitoJunit.controller.ItemController;
+import com.gazoul.unittesting.mockitoJunit.model.Item;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,6 +19,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -25,6 +29,9 @@ public class ItemControllerTest {
 
     @Autowired
     MockMvc mockMvc;
+
+    @MockBean
+    ItemBusinessService businessService;
     @Test
     public void dummyItem() throws Exception {
 
@@ -39,6 +46,19 @@ public class ItemControllerTest {
                 .andReturn();                               //
 
           //JSONAssert.assertEquals(expected, actual, strict);
+    }
+    @Test
+    public void itemFromBusinessService() throws Exception {
+        when(businessService.retrieveHardcodedItem()).thenReturn(
+                new Item(2,"Item2",10,10));
+        RequestBuilder request = MockMvcRequestBuilders //
+                .get("/items-from-business-service")        //          Perform a Get call
+                .accept(MediaType.APPLICATION_JSON);    //
+
+        MvcResult result = mockMvc.perform(request)         //
+                .andExpect(status().isOk())                 //   Verification of the response
+                .andExpect(content().json("{id:2,name:Item2,price:10}")) // we can add in space or remove some key pairs ... and it will automatically know and
+                .andReturn();                               //
     }
 
 
