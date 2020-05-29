@@ -1,13 +1,21 @@
 package com.gazoul.unittesting.mockitoJunit.model;
 
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+@Entity
 public class Item {
 
+    @Id
     private int id;
     private String name;
     private int price;
     private int quantity;
 
+    @Transient
+    private int value;
     public Item() {
     }
 
@@ -16,6 +24,14 @@ public class Item {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public int getId() {
