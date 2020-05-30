@@ -83,4 +83,19 @@ public class ItemControllerTest {
                         "{id:4,name:Item4,price:30}]")) // we can pass in empty arrays aswell but the count should match like
                 .andReturn();                               // we can pass 1 array and add [],[] empty array it will still pass
     }
+
+    /*
+            RequestBuilder request = MockMvcRequestBuilders //
+                .post("/hello-world")        //          Perform a Post call
+                .accept(MediaType.APPLICATION_JSON)
+                .content("[{id:2,name:Item2,price:10}," +
+                        "{id:3,name:Item3,price:20}," +
+                        "{id:4,name:Item4,price:30}]")
+                        .contentType(MediaType.APPLICATION_JSON);//
+
+        MvcResult result = mockMvc.perform(request)         //
+                .andExpect(status().isCreated())                 //   Verification of the response
+                .andExpect(header().string("location",containsString("item")) //
+                .andReturn();                               //
+*/
 }
